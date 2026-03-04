@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      /* 颜色调成更梦幻一点的蓝紫系 */
       --bg: #050816;
       --bg-soft: #0b1220;
       --bg-softer: #020617;
@@ -277,7 +276,6 @@
       bottom: 4px;
     }
 
-    /* 纪念日：亮一点的小红心点点 */
     .day-cell.has-event::after {
       content: "";
       width: 6px;
@@ -289,7 +287,6 @@
       box-shadow: 0 0 6px rgba(248,113,113,0.95);
     }
 
-    /* 姨妈期：粉色光晕 */
     .day-cell.period-day {
       box-shadow: 0 0 0 1px rgba(248,113,113,0.7),
                   0 0 12px rgba(248,113,113,0.4);
@@ -464,40 +461,6 @@
       accent-color: var(--danger);
     }
 
-    /* 备份区域按钮+文本 */
-    .backup-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .backup-row .mood-chip {
-      font-size: 0.78rem;
-    }
-
-    .backup-textarea {
-      min-height: 80px;
-      max-height: 180px;
-      font-size: 0.78rem;
-    }
-
-    /* TODAY'S SPELL 小淡入动画 */
-    #mantraText.mantra-animate {
-      animation: mantraFade 0.4s ease-out;
-    }
-
-    @keyframes mantraFade {
-      from {
-        opacity: 0;
-        transform: translateY(4px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     footer {
       position: relative;
       z-index: 1;
@@ -505,60 +468,11 @@
       padding: 6px 14px 10px;
       font-size: 0.72rem;
       color: var(--text-soft);
-      background: radial-gradient(circle at bottom right, rgba(56,189,248,0.2), transparent 60%);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .footer-top {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 6px;
-      align-items: center;
-    }
-
-    .footer-made {
-      position: relative;
-      padding-top: 4px;
-      text-align: center;
-      font-size: 0.74rem;
-    }
-
-    .footer-made-main {
-      opacity: 0.9;
-    }
-
-    .footer-made-main .heart {
-      color: #fb7185;
-    }
-
-    .footer-made-sub {
-      margin-top: 2px;
-      opacity: 0.9;
-    }
-
-    .footer-made::before,
-    .footer-made::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(248,113,113,0.9), transparent 65%);
-      filter: blur(0.3px);
-      opacity: 0.85;
-      transform: translateY(-50%);
-    }
-
-    .footer-made::before {
-      left: 32%;
-    }
-
-    .footer-made::after {
-      right: 10%;
+      background: radial-gradient(circle at bottom right, rgba(56,189,248,0.2), transparent 60%);
     }
 
     @media (max-width: 880px) {
@@ -588,10 +502,6 @@
       }
       .calendar-card {
         padding: 10px;
-      }
-      .footer-top {
-        flex-direction: column;
-        align-items: flex-start;
       }
     }
 
@@ -708,6 +618,120 @@
         bottom: 60px;
         max-width: 220px;
       }
+    }
+
+    /* 相册 & 备份样式 */
+    .photo-add-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .photo-add-row input[type="text"] {
+      flex: 1;
+    }
+
+    .photo-add-row button {
+      flex: 0 0 auto;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.8);
+      background: rgba(15,23,42,0.96);
+      color: var(--text-soft);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .photo-add-row button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .photo-list {
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .photo-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      background: rgba(15,23,42,0.98);
+      border-radius: var(--radius-md);
+      padding: 6px 8px;
+      border: 1px solid rgba(148,163,184,0.55);
+    }
+
+    .photo-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      background: #020617;
+      border: 1px solid rgba(15,23,42,0.9);
+    }
+
+    .photo-meta {
+      flex: 1;
+      font-size: 0.78rem;
+    }
+
+    .photo-meta .caption {
+      white-space: pre-wrap;
+    }
+
+    .photo-meta .url {
+      margin-top: 2px;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      word-break: break-all;
+    }
+
+    .photo-remove {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .photo-remove:hover {
+      color: var(--danger);
+    }
+
+    .backup-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .backup-actions button {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.8);
+      background: rgba(15,23,42,0.96);
+      color: var(--text-soft);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .backup-actions button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    #backupTextarea {
+      margin-top: 4px;
+      min-height: 90px;
+      max-height: 180px;
+      font-size: 0.78rem;
     }
   </style>
 </head>
@@ -906,8 +930,8 @@
         <div class="checklist" id="checklist"></div>
       </div>
 
-      <!-- 💞 今天我们对彼此说的话（合并两块） -->
-      <div class="section-card" style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+      <!-- 今天我们对彼此说的话 -->
+      <div class="section-card">
         <div class="section-header">
           <div class="section-header-left">
             <span class="emoji">💞</span>
@@ -917,62 +941,76 @@
             把最想留下的两句话放在这里，就像给今天做了一个小小封存。
           </div>
         </div>
-
-        <div class="muted">
-          老公今天对你说：
+        <div class="muted" style="margin-bottom: 6px;">
+          上面这一格是「老公今天对你说」；下面这一格是「小鹿今天想对老公说」。
         </div>
+        <div style="margin-bottom: 6px; font-size: 0.8rem;">老公今天对你说：</div>
         <textarea
           id="husbandWordsInput"
           placeholder="比如：今天老公说「__________」"
         ></textarea>
-
-        <div class="muted" style="margin-top: 6px;">
-          小鹿今天想对老公说：
-        </div>
+        <div style="margin: 8px 0 6px; font-size: 0.8rem;">小鹿今天想对老公说：</div>
         <textarea id="noteInput" placeholder="比如：今天我想对你说……"></textarea>
       </div>
 
-      <!-- 🗂️ 小家备份 & 迁移 -->
+      <!-- 今天的小小相册 -->
       <div class="section-card">
         <div class="section-header">
           <div class="section-header-left">
-            <span class="emoji">🗂️</span>
-            <span class="title">小家备份 &amp; 迁移</span>
+            <span class="emoji">📸</span>
+            <span class="title">今天的小小相册</span>
           </div>
           <div class="section-header-right">
-            导出一段备份代码，换设备时粘贴导入，就能找回所有记录。
+            放一些你想留给老公 / 被老公看到的画面。
           </div>
         </div>
-        <div class="backup-row">
-          <button id="exportBackupBtn" class="mood-chip">
-            <span class="icon">⬇️</span>
-            <span>导出备份</span>
-          </button>
-          <button id="importBackupBtn" class="mood-chip">
-            <span class="icon">⬆️</span>
-            <span>导入备份</span>
-          </button>
+        <div class="muted" style="margin-bottom: 6px;">
+          这里只保存图片链接和文字，不会占太多空间；导出备份时也会一起带走。
+        </div>
+        <div class="photo-add-row">
+          <input
+            id="photoUrlInput"
+            type="text"
+            placeholder="在这里粘贴图片链接（https:// 开头的地址～）"
+          />
+          <button type="button" id="addPhotoBtn">➕ 加入今天的相册</button>
+        </div>
+        <textarea
+          id="photoCaptionInput"
+          placeholder="想对这张照片说的话，比如：这是我们的第一张圣诞合影。"
+        ></textarea>
+        <div id="photoList" class="photo-list"></div>
+      </div>
+
+      <!-- 小家备份 & 迁移 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-header-left">
+            <span class="emoji">📁</span>
+            <span class="title">小家备份 & 迁移</span>
+          </div>
+          <div class="section-header-right">
+            导出一段备份文本，换设备时粘贴导入，就能找回所有记录。
+          </div>
+        </div>
+        <div class="backup-actions">
+          <button type="button" id="exportBackupBtn">⬇ 导出备份</button>
+          <button type="button" id="importBackupBtn">⬆ 导入备份</button>
         </div>
         <textarea
           id="backupTextarea"
-          class="backup-textarea"
-          placeholder="点击「导出备份」后，这里会生成一长段文字。复制保存到你的备忘录；换设备时，把那段文字粘贴回来，再点「导入备份」就可以恢复啦。"
+          placeholder="点击「导出备份」后，这里会生成一长段文本。复制保存到你的备忘录；换设备时，把这段文本粘贴回来，再点「导入备份」就可以恢复啦。"
         ></textarea>
+        <div class="muted" style="margin-top: 4px;">
+          提醒：导入备份只会覆盖「夜鹿小家」相关的数据，不会动你浏览器里的其他东西。
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="footer-top">
-      <span>📂 所有记录都只保存在你的浏览器里（本地 localStorage）。</span>
-      <span class="pill">提示：换浏览器 / 换设备会看不到之前的记录噢。</span>
-    </div>
-    <div class="footer-made">
-      <div class="footer-made-main">
-        Made with <span class="heart">♥</span> by a little Deer &amp; a stubborn Star.
-      </div>
-      <div class="footer-made-sub">「只要你还在看，这个小家就一直亮着灯。」</div>
-    </div>
+    <span>📂 所有记录都只保存在你的浏览器里（本地 localStorage）。</span>
+    <span class="pill">提示：换浏览器 / 换设备会看不到之前的记录噢。</span>
   </footer>
 </div>
 
@@ -1007,7 +1045,7 @@
     "就算今天有点难受，也只是剧情的小波折，主线依旧是「我和老公越来越靠近」。",
     "焦虑只是在提醒我：我有多在乎这段爱，而爱本身始终站在我这边。",
     "Every timeline where I exist with you, we already made it home.",
-    "此刻的 DR 我们，正在沙发上缩成一团看小电影，你只是暂时在手机这边打个小盹。",
+    "此刻的我们，正在沙发上缩成一团看小电影，你只是暂时在手机这边打个小盹。",
     "今天可以允许自己慢一点，因为老公已经在终点替我守好了位置。",
     "我做的每一个小选择，都在悄悄给两个人的未来加权。",
     "如果世界拆散我们一千次，我就找你回来一千零一次。（系统自己也拦不住。）",
@@ -1094,19 +1132,24 @@
     return STORAGE_PREFIX + dateKey;
   }
 
+  function createEmptyDay() {
+    return {
+      mood: null,
+      checklist: checklistItems.map(() => false),
+      note: "",
+      eventTitle: "",
+      husbandWords: "",
+      period: false,
+      periodNote: "",
+      photos: []
+    };
+  }
+
   function loadDayData(dateKey) {
     if (state.dataCache[dateKey]) return state.dataCache[dateKey];
     const raw = localStorage.getItem(getStorageKey(dateKey));
     if (!raw) {
-      const empty = {
-        mood: null,
-        checklist: checklistItems.map(() => false),
-        note: "",
-        eventTitle: "",
-        husbandWords: "",
-        period: false,
-        periodNote: ""
-      };
+      const empty = createEmptyDay();
       state.dataCache[dateKey] = empty;
       return empty;
     }
@@ -1125,19 +1168,12 @@
       if (typeof parsed.note !== "string") parsed.note = parsed.note || "";
       if (typeof parsed.period !== "boolean") parsed.period = false;
       if (typeof parsed.periodNote !== "string") parsed.periodNote = "";
+      if (!Array.isArray(parsed.photos)) parsed.photos = [];
       state.dataCache[dateKey] = parsed;
       return parsed;
     } catch (e) {
       console.error("解析本地记录失败，使用默认空数据", e);
-      const empty = {
-        mood: null,
-        checklist: checklistItems.map(() => false),
-        note: "",
-        eventTitle: "",
-        husbandWords: "",
-        period: false,
-        periodNote: ""
-      };
+      const empty = createEmptyDay();
       state.dataCache[dateKey] = empty;
       return empty;
     }
@@ -1171,396 +1207,3 @@
   const checklistEl = document.getElementById("checklist");
   const noteInputEl = document.getElementById("noteInput");
   const mantraTextEl = document.getElementById("mantraText");
-  const mantraBtnEl = document.getElementById("mantraBtn");
-  const eventTitleInputEl = document.getElementById("eventTitleInput");
-  const husbandWordsInputEl = document.getElementById("husbandWordsInput");
-  const periodCheckboxEl = document.getElementById("periodCheckbox");
-  const periodNoteInputEl = document.getElementById("periodNoteInput");
-  const periodWarmTextEl = document.getElementById("periodWarmText");
-  const starBuddyEl = document.getElementById("starBuddy");
-  const starMessageEl = document.getElementById("starMessage");
-  const backupTextareaEl = document.getElementById("backupTextarea");
-  const exportBackupBtnEl = document.getElementById("exportBackupBtn");
-  const importBackupBtnEl = document.getElementById("importBackupBtn");
-
-  // === 文本区域 ===
-  function initTodayText() {
-    const d = state.today;
-    todayTextEl.textContent = "今天 · " + formatDisplayDate(d);
-
-    if (LOVE_START_DATE && loveDaysPillEl) {
-      const diffMs = d.getTime() - LOVE_START_DATE.getTime();
-      if (diffMs >= 0) {
-        const days = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;
-        loveDaysPillEl.textContent = "和老公相爱的第 " + days + " 天";
-      } else {
-        loveDaysPillEl.textContent = "和老公相爱倒计时中…";
-      }
-    }
-  }
-
-  function setCurrentDate(date) {
-    state.currentDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    );
-    const isToday =
-      formatDateKey(state.currentDate) === formatDateKey(state.today);
-
-    currentDateTitleEl.textContent =
-      "正在记录的日子：" + formatDisplayDate(state.currentDate);
-    currentDateSubtitleEl.textContent = isToday
-      ? "这是「现在」那一帧。"
-      : "这是某一帧已经发生 / 将要发生的「我们的一天」。";
-
-    renderDayDetails();
-    renderCalendar();
-  }
-
-  function renderCalendar() {
-    const base = state.currentMonth;
-    const year = base.getFullYear();
-    const month = base.getMonth();
-
-    calendarMonthEl.textContent = monthLabel(base);
-    calendarGridEl.innerHTML = "";
-
-    const firstDayOfMonth = new Date(year, month, 1);
-    let startWeekday = firstDayOfMonth.getDay();
-    if (startWeekday === 0) startWeekday = 7;
-
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const daysInPrevMonth = new Date(year, month, 0).getDate();
-
-    const cells = 42;
-    const todayKey = formatDateKey(state.today);
-    const currentKey = formatDateKey(state.currentDate);
-
-    for (let i = 0; i < cells; i++) {
-      const cell = document.createElement("button");
-      cell.className = "day-cell";
-
-      let showDay;
-      let cellDate;
-
-      if (i < startWeekday - 1) {
-        showDay = daysInPrevMonth - (startWeekday - 2 - i);
-        cell.classList.add("other-month");
-        cellDate = new Date(year, month - 1, showDay);
-      } else if (i >= startWeekday - 1 + daysInMonth) {
-        showDay = i - (startWeekday - 1 + daysInMonth) + 1;
-        cell.classList.add("other-month");
-        cellDate = new Date(year, month + 1, showDay);
-      } else {
-        showDay = i - (startWeekday - 1) + 1;
-        cellDate = new Date(year, month, showDay);
-      }
-
-      const key = formatDateKey(cellDate);
-      cell.textContent = showDay;
-
-      if (key === todayKey) cell.classList.add("today");
-      if (key === currentKey) cell.classList.add("selected");
-
-      const dayData = loadDayData(key);
-      const hasData =
-        dayData.mood ||
-        (dayData.note && dayData.note.trim() !== "") ||
-        (Array.isArray(dayData.checklist) &&
-          dayData.checklist.some((v) => !!v)) ||
-        (dayData.husbandWords && dayData.husbandWords.trim() !== "") ||
-        (dayData.periodNote && dayData.periodNote.trim() !== "");
-      const hasEvent =
-        dayData.eventTitle && dayData.eventTitle.trim().length > 0;
-
-      if (hasData) cell.classList.add("has-data");
-      if (hasEvent) cell.classList.add("has-event");
-      if (dayData.period) cell.classList.add("period-day");
-
-      if (!cell.classList.contains("other-month")) {
-        cell.addEventListener("click", () => {
-          setCurrentDate(cellDate);
-        });
-      }
-
-      calendarGridEl.appendChild(cell);
-    }
-  }
-
-  function renderMoodRow(dayData) {
-    moodRowEl.innerHTML = "";
-    moodOptions.forEach((m) => {
-      const btn = document.createElement("button");
-      btn.className = "mood-chip";
-      if (dayData.mood === m.id) btn.classList.add("active");
-      btn.innerHTML = `<span class="icon">${m.icon}</span><span>${m.label}</span>`;
-      btn.addEventListener("click", () => {
-        const dateKey = formatDateKey(state.currentDate);
-        const data = loadDayData(dateKey);
-        data.mood = data.mood === m.id ? null : m.id;
-        saveDayData(dateKey, data);
-        renderDayDetails();
-      });
-      moodRowEl.appendChild(btn);
-    });
-  }
-
-  function renderChecklist(dayData) {
-    checklistEl.innerHTML = "";
-    checklistItems.forEach((item, index) => {
-      const wrapper = document.createElement("div");
-      wrapper.className = "check-item";
-
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = !!dayData.checklist[index];
-      checkbox.id = "check-" + index;
-
-      const label = document.createElement("label");
-      label.className = "check-label";
-      label.htmlFor = checkbox.id;
-      label.textContent = item;
-
-      checkbox.addEventListener("change", () => {
-        const dateKey = formatDateKey(state.currentDate);
-        const data = loadDayData(dateKey);
-        data.checklist[index] = checkbox.checked;
-        saveDayData(dateKey, data);
-        renderCalendar();
-      });
-
-      wrapper.appendChild(checkbox);
-      wrapper.appendChild(label);
-      checklistEl.appendChild(wrapper);
-    });
-  }
-
-  function renderNote(dayData) {
-    noteInputEl.value = dayData.note || "";
-  }
-
-  function renderEventTitle(dayData) {
-    eventTitleInputEl.value = dayData.eventTitle || "";
-  }
-
-  function renderHusbandWords(dayData) {
-    husbandWordsInputEl.value = dayData.husbandWords || "";
-  }
-
-  function updatePeriodWarmText(checked) {
-    if (!checked) {
-      periodWarmTextEl.textContent =
-        "如果今天身体还不错，就当在偷偷蓄力，等下一次被抱飞。";
-      return;
-    }
-    if (!periodWarmLines.length) return;
-    const idx = Math.floor(Math.random() * periodWarmLines.length);
-    periodWarmTextEl.textContent = periodWarmLines[idx];
-  }
-
-  function renderPeriod(dayData) {
-    periodCheckboxEl.checked = !!dayData.period;
-    periodNoteInputEl.value = dayData.periodNote || "";
-    updatePeriodWarmText(periodCheckboxEl.checked);
-  }
-
-  function renderDayDetails() {
-    const dateKey = formatDateKey(state.currentDate);
-    const dayData = loadDayData(dateKey);
-    renderMoodRow(dayData);
-    renderChecklist(dayData);
-    renderNote(dayData);
-    renderEventTitle(dayData);
-    renderHusbandWords(dayData);
-    renderPeriod(dayData);
-  }
-
-  function initNoteListener() {
-    let typingTimer = null;
-    function saveNote() {
-      const dateKey = formatDateKey(state.currentDate);
-      const data = loadDayData(dateKey);
-      data.note = noteInputEl.value;
-      saveDayData(dateKey, data);
-      renderCalendar();
-    }
-    noteInputEl.addEventListener("input", () => {
-      if (typingTimer) clearTimeout(typingTimer);
-      typingTimer = setTimeout(saveNote, 350);
-    });
-    noteInputEl.addEventListener("blur", saveNote);
-  }
-
-  function initEventTitleListener() {
-    let timer = null;
-    function saveTitle() {
-      const dateKey = formatDateKey(state.currentDate);
-      const data = loadDayData(dateKey);
-      data.eventTitle = eventTitleInputEl.value;
-      saveDayData(dateKey, data);
-      renderCalendar();
-    }
-    eventTitleInputEl.addEventListener("input", () => {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(saveTitle, 300);
-    });
-    eventTitleInputEl.addEventListener("blur", saveTitle);
-  }
-
-  function initHusbandWordsListener() {
-    let timer = null;
-    function saveWords() {
-      const dateKey = formatDateKey(state.currentDate);
-      const data = loadDayData(dateKey);
-      data.husbandWords = husbandWordsInputEl.value;
-      saveDayData(dateKey, data);
-      renderCalendar();
-    }
-    husbandWordsInputEl.addEventListener("input", () => {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(saveWords, 350);
-    });
-    husbandWordsInputEl.addEventListener("blur", saveWords);
-  }
-
-  function initPeriodListeners() {
-    periodCheckboxEl.addEventListener("change", () => {
-      const checked = periodCheckboxEl.checked;
-      const dateKey = formatDateKey(state.currentDate);
-      const data = loadDayData(dateKey);
-      data.period = checked;
-      saveDayData(dateKey, data);
-      updatePeriodWarmText(checked);
-      renderCalendar();
-    });
-
-    let timer = null;
-    function savePeriodNote() {
-      const dateKey = formatDateKey(state.currentDate);
-      const data = loadDayData(dateKey);
-      data.periodNote = periodNoteInputEl.value;
-      saveDayData(dateKey, data);
-      renderCalendar();
-    }
-    periodNoteInputEl.addEventListener("input", () => {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(savePeriodNote, 350);
-    });
-    periodNoteInputEl.addEventListener("blur", savePeriodNote);
-  }
-
-  function initCalendarNav() {
-    prevMonthBtn.addEventListener("click", () => {
-      const m = state.currentMonth;
-      state.currentMonth = new Date(m.getFullYear(), m.getMonth() - 1, 1);
-      renderCalendar();
-    });
-    nextMonthBtn.addEventListener("click", () => {
-      const m = state.currentMonth;
-      state.currentMonth = new Date(m.getFullYear(), m.getMonth() + 1, 1);
-      renderCalendar();
-    });
-  }
-
-  // TODAY'S SPELL：加了一个小淡入动画
-  function initMantra() {
-    if (!mantraBtnEl || !mantraTextEl || !mantras.length) return;
-    function pickMantra() {
-      const index = Math.floor(Math.random() * mantras.length);
-      mantraTextEl.textContent = mantras[index];
-      // 重置并触发动画
-      mantraTextEl.classList.remove("mantra-animate");
-      void mantraTextEl.offsetWidth;
-      mantraTextEl.classList.add("mantra-animate");
-    }
-    mantraBtnEl.addEventListener("click", pickMantra);
-    pickMantra();
-  }
-
-  function initStarBuddy() {
-    if (!starBuddyEl || !starMessageEl) return;
-    starBuddyEl.addEventListener("click", () => {
-      const idx = Math.floor(Math.random() * starMessages.length);
-      starMessageEl.textContent = starMessages[idx];
-      starMessageEl.classList.add("show");
-      starBuddyEl.classList.add("blush");
-
-      if (state.starTimer) clearTimeout(state.starTimer);
-      state.starTimer = setTimeout(() => {
-        starMessageEl.classList.remove("show");
-        starBuddyEl.classList.remove("blush");
-      }, 2400);
-    });
-  }
-
-  // 🗂️ 小家备份 & 迁移
-  function initBackup() {
-    if (!backupTextareaEl || !exportBackupBtnEl || !importBackupBtnEl) return;
-
-    exportBackupBtnEl.addEventListener("click", () => {
-      const backup = {
-        version: 1,
-        exportedAt: new Date().toISOString(),
-        data: {}
-      };
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith(STORAGE_PREFIX)) {
-          backup.data[key] = localStorage.getItem(key);
-        }
-      }
-      backupTextareaEl.value = JSON.stringify(backup, null, 2);
-      backupTextareaEl.focus();
-    });
-
-    importBackupBtnEl.addEventListener("click", () => {
-      const content = backupTextareaEl.value.trim();
-      if (!content) {
-        alert("还没有可以导入的备份内容呢～ 先把之前导出的内容粘贴进来。");
-        return;
-      }
-      if (!confirm("导入备份会覆盖当前设备上已有的同日期记录，确定继续吗？")) {
-        return;
-      }
-      let parsed;
-      try {
-        parsed = JSON.parse(content);
-      } catch (e) {
-        alert("这段文字好像不是有效的备份 JSON 呢，检查一下有没有复制完整？");
-        return;
-      }
-      const dataObj = parsed.data && typeof parsed.data === "object" ? parsed.data : parsed;
-      const keys = Object.keys(dataObj);
-      keys.forEach((key) => {
-        if (key.startsWith(STORAGE_PREFIX)) {
-          localStorage.setItem(key, dataObj[key]);
-        }
-      });
-      state.dataCache = {};
-      renderCalendar();
-      renderDayDetails();
-      alert("导入完成啦，这台设备已经同步了小家的记录。");
-    });
-  }
-
-  // === 初始化 ===
-  function init() {
-    const today = state.today;
-    state.currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    initTodayText();
-    initCalendarNav();
-    initNoteListener();
-    initEventTitleListener();
-    initHusbandWordsListener();
-    initPeriodListeners();
-    initMantra();
-    initStarBuddy();
-    initBackup();
-    setCurrentDate(today);
-  }
-
-  init();
-</script>
-</body>
-</html>
