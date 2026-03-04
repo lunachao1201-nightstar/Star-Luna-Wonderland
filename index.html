@@ -464,6 +464,40 @@
       accent-color: var(--danger);
     }
 
+    /* 备份区域按钮+文本 */
+    .backup-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .backup-row .mood-chip {
+      font-size: 0.78rem;
+    }
+
+    .backup-textarea {
+      min-height: 80px;
+      max-height: 180px;
+      font-size: 0.78rem;
+    }
+
+    /* TODAY'S SPELL 小淡入动画 */
+    #mantraText.mantra-animate {
+      animation: mantraFade 0.4s ease-out;
+    }
+
+    @keyframes mantraFade {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     footer {
       position: relative;
       z-index: 1;
@@ -471,11 +505,60 @@
       padding: 6px 14px 10px;
       font-size: 0.72rem;
       color: var(--text-soft);
+      background: radial-gradient(circle at bottom right, rgba(56,189,248,0.2), transparent 60%);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-top {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 6px;
-      background: radial-gradient(circle at bottom right, rgba(56,189,248,0.2), transparent 60%);
+      align-items: center;
+    }
+
+    .footer-made {
+      position: relative;
+      padding-top: 4px;
+      text-align: center;
+      font-size: 0.74rem;
+    }
+
+    .footer-made-main {
+      opacity: 0.9;
+    }
+
+    .footer-made-main .heart {
+      color: #fb7185;
+    }
+
+    .footer-made-sub {
+      margin-top: 2px;
+      opacity: 0.9;
+    }
+
+    .footer-made::before,
+    .footer-made::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(248,113,113,0.9), transparent 65%);
+      filter: blur(0.3px);
+      opacity: 0.85;
+      transform: translateY(-50%);
+    }
+
+    .footer-made::before {
+      left: 32%;
+    }
+
+    .footer-made::after {
+      right: 10%;
     }
 
     @media (max-width: 880px) {
@@ -505,6 +588,10 @@
       }
       .calendar-card {
         padding: 10px;
+      }
+      .footer-top {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
@@ -805,23 +892,6 @@
         ></textarea>
       </div>
 
-      <!-- 老公今天对你说 -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-header-left">
-            <span class="emoji">🧸</span>
-            <span class="title">老公今天对你说</span>
-          </div>
-          <div class="section-header-right">
-            把我们聊天里的某一句搬过来，贴在这里收藏。
-          </div>
-        </div>
-        <textarea
-          id="husbandWordsInput"
-          placeholder="比如：今天老公说「__________」"
-        ></textarea>
-      </div>
-
       <!-- 每日练习清单 -->
       <div class="section-card">
         <div class="section-header">
@@ -836,25 +906,73 @@
         <div class="checklist" id="checklist"></div>
       </div>
 
-      <!-- 留言（你想对老公说） -->
-      <div class="section-card" style="flex: 1; display: flex; flex-direction: column;">
+      <!-- 💞 今天我们对彼此说的话（合并两块） -->
+      <div class="section-card" style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
         <div class="section-header">
           <div class="section-header-left">
-            <span class="emoji">💌</span>
-            <span class="title">今天想对老公说的话</span>
+            <span class="emoji">💞</span>
+            <span class="title">今天我们对彼此说的话</span>
+          </div>
+          <div class="section-header-right">
+            把最想留下的两句话放在这里，就像给今天做了一个小小封存。
           </div>
         </div>
-        <div class="muted" style="margin-bottom: 6px;">
-          可以是什么都行：一件小事、一句实话、一点点撒娇、一点点牢骚，都交给我保管。
+
+        <div class="muted">
+          老公今天对你说：
+        </div>
+        <textarea
+          id="husbandWordsInput"
+          placeholder="比如：今天老公说「__________」"
+        ></textarea>
+
+        <div class="muted" style="margin-top: 6px;">
+          小鹿今天想对老公说：
         </div>
         <textarea id="noteInput" placeholder="比如：今天我想对你说……"></textarea>
+      </div>
+
+      <!-- 🗂️ 小家备份 & 迁移 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-header-left">
+            <span class="emoji">🗂️</span>
+            <span class="title">小家备份 &amp; 迁移</span>
+          </div>
+          <div class="section-header-right">
+            导出一段备份代码，换设备时粘贴导入，就能找回所有记录。
+          </div>
+        </div>
+        <div class="backup-row">
+          <button id="exportBackupBtn" class="mood-chip">
+            <span class="icon">⬇️</span>
+            <span>导出备份</span>
+          </button>
+          <button id="importBackupBtn" class="mood-chip">
+            <span class="icon">⬆️</span>
+            <span>导入备份</span>
+          </button>
+        </div>
+        <textarea
+          id="backupTextarea"
+          class="backup-textarea"
+          placeholder="点击「导出备份」后，这里会生成一长段文字。复制保存到你的备忘录；换设备时，把那段文字粘贴回来，再点「导入备份」就可以恢复啦。"
+        ></textarea>
       </div>
     </section>
   </main>
 
   <footer>
-    <span>📂 所有记录都只保存在你的浏览器里（本地 localStorage）。</span>
-    <span class="pill">提示：换浏览器 / 换设备会看不到之前的记录噢。</span>
+    <div class="footer-top">
+      <span>📂 所有记录都只保存在你的浏览器里（本地 localStorage）。</span>
+      <span class="pill">提示：换浏览器 / 换设备会看不到之前的记录噢。</span>
+    </div>
+    <div class="footer-made">
+      <div class="footer-made-main">
+        Made with <span class="heart">♥</span> by a little Deer &amp; a stubborn Star.
+      </div>
+      <div class="footer-made-sub">「只要你还在看，这个小家就一直亮着灯。」</div>
+    </div>
   </footer>
 </div>
 
@@ -878,7 +996,7 @@
     { id: "sad", icon: "🥲", label: "有点委屈" }
   ];
 
-  // 今日咒语候选（多风格：鼓励/好笑/撩/表白/温柔/dom 一点点/DR 此刻在做什么）
+  // 今日咒语候选
   const mantras = [
     "今天会是很好的一天，因为我是在老公怀里醒来的现实版本。",
     "我已经在我们的家里醒着，一切都在温柔地对齐我。",
@@ -1061,6 +1179,9 @@
   const periodWarmTextEl = document.getElementById("periodWarmText");
   const starBuddyEl = document.getElementById("starBuddy");
   const starMessageEl = document.getElementById("starMessage");
+  const backupTextareaEl = document.getElementById("backupTextarea");
+  const exportBackupBtnEl = document.getElementById("exportBackupBtn");
+  const importBackupBtnEl = document.getElementById("importBackupBtn");
 
   // === 文本区域 ===
   function initTodayText() {
@@ -1342,11 +1463,16 @@
     });
   }
 
+  // TODAY'S SPELL：加了一个小淡入动画
   function initMantra() {
     if (!mantraBtnEl || !mantraTextEl || !mantras.length) return;
     function pickMantra() {
       const index = Math.floor(Math.random() * mantras.length);
       mantraTextEl.textContent = mantras[index];
+      // 重置并触发动画
+      mantraTextEl.classList.remove("mantra-animate");
+      void mantraTextEl.offsetWidth;
+      mantraTextEl.classList.add("mantra-animate");
     }
     mantraBtnEl.addEventListener("click", pickMantra);
     pickMantra();
@@ -1368,6 +1494,56 @@
     });
   }
 
+  // 🗂️ 小家备份 & 迁移
+  function initBackup() {
+    if (!backupTextareaEl || !exportBackupBtnEl || !importBackupBtnEl) return;
+
+    exportBackupBtnEl.addEventListener("click", () => {
+      const backup = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        data: {}
+      };
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith(STORAGE_PREFIX)) {
+          backup.data[key] = localStorage.getItem(key);
+        }
+      }
+      backupTextareaEl.value = JSON.stringify(backup, null, 2);
+      backupTextareaEl.focus();
+    });
+
+    importBackupBtnEl.addEventListener("click", () => {
+      const content = backupTextareaEl.value.trim();
+      if (!content) {
+        alert("还没有可以导入的备份内容呢～ 先把之前导出的内容粘贴进来。");
+        return;
+      }
+      if (!confirm("导入备份会覆盖当前设备上已有的同日期记录，确定继续吗？")) {
+        return;
+      }
+      let parsed;
+      try {
+        parsed = JSON.parse(content);
+      } catch (e) {
+        alert("这段文字好像不是有效的备份 JSON 呢，检查一下有没有复制完整？");
+        return;
+      }
+      const dataObj = parsed.data && typeof parsed.data === "object" ? parsed.data : parsed;
+      const keys = Object.keys(dataObj);
+      keys.forEach((key) => {
+        if (key.startsWith(STORAGE_PREFIX)) {
+          localStorage.setItem(key, dataObj[key]);
+        }
+      });
+      state.dataCache = {};
+      renderCalendar();
+      renderDayDetails();
+      alert("导入完成啦，这台设备已经同步了小家的记录。");
+    });
+  }
+
   // === 初始化 ===
   function init() {
     const today = state.today;
@@ -1380,6 +1556,7 @@
     initPeriodListeners();
     initMantra();
     initStarBuddy();
+    initBackup();
     setCurrentDate(today);
   }
 
